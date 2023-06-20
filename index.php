@@ -79,14 +79,19 @@
 </html>
 
 <?php
-$servername = "localhost";
-$username = "username";
-$password = "password";
+// $servername = "localhost";
+// $username = "username";
+// $password = "password";
 
-$conn = new mysqli($servername, $username, $password);
+// $conn = new mysqli($servername, $username, $password);
 
-if ($conn->connect_error) {
-  die("Connection To The Database Failed: " . $conn->connect_error);
-}
-echo "Connected To The Database Successfully";
+// if ($conn->connect_error) {
+//   die("Connection To The Database Failed: " . $conn->connect_error);
+// }
+// echo "Connected To The Database Successfully";
 ?>
+
+<!--https://datasette.io/tutorials/codespaces-->
+
+<!--Start PHP Server "php -S 00000:8080"-->
+
