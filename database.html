@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Database</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+
+        #myInput {
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+        }
+        </style>
+
+</head>
+<body>
+    <h1>Lab Database Table</h1>
+    <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search For Item Names..." title="Type In An Item Name">
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Item ID</th>
+                <th>Last Checkout Date</th>
+                <th>Last Checkout Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Item 1</td>
+                <td>1</td>
+                <td>1/1/1999</td>
+                <td>John Doe</td>
+            </tr>
+            <tr>
+                <td>Item 2</td>
+                <td>2</td>
+                <td>1/2/1999</td>
+                <td>John Doe</td>
+            </tr>
+            <tr>
+                <td>Item 3</td>
+                <td>3</td>
+                <td>1/3/1999</td>
+                <td>John Doe</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <a href="newItem.html">
+        <button>Add New Item</button>
+    </a>
+    <br>
+    <br>
+    <a href="checkoutItem.html">
+        <button>Checkout Item</button>
+    </a>
+    <script>
+        function searchTable() {
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }       
+          }
+        }
+        </script>
+</body>
+</html>
