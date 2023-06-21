@@ -71,3 +71,7 @@
         <button type="submit">Checkout Item</button>
 </body>
 </html>
+
+<?php
+
+?>

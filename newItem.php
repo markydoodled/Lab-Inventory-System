@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab Inventory System</title>
+    <title>Add New Item</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,7 +26,7 @@
             margin-bottom: 10px;
             font-weight: bold;
         }
-        input[type="text"], input[type="password"] {
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -45,58 +45,34 @@
             margin: 0 auto;
         }
         button[type="submit"]:hover {
-            background-color: #3e8e41;
+            background-color: cadetblue;
         }
     </style>
 </head>
 <body>
-    <h1>Lab Inventory System</h1>
-    <form id="login-form">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+    <h1>Add Item To The Database</h1>
+    <form id="newItem-form">
+        <label for="item-name">Item Name:</label>
+        <input type="text" id="item-name" name="item-name" required>
         <br>
         <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <label for="item-id">Item ID:</label>
+        <input type="text" id="item-id" name="item-id" required>
         <br>
         <br>
-        <button type="submit">Login</button>
+        <button type="submit">Add New Item</button>
     </form>
     <script>
-        const form = document.getElementById('login-form');
+        const form = document.getElementById('newItem-form');
         form.addEventListener('submit', (event) => {
         event.preventDefault();
-        const username = form.elements.username.value;
-        const password = form.elements.password.value;
-        if (username === 'BSDCLabUser' && password === 'BSDCLabPassword') {
-            window.location.href = 'database.html';
-        } else {
-            alert('Incorrect Username Or Password');
-        }
+        const itemName = form.elements.item-name.value;
+        const itemID = form.elements.item-id.value;
         });
     </script>
 </body>
 </html>
 
 <?php
-// $servername = "localhost";
-// $username = "username";
-// $password = "password";
 
-// $conn = new mysqli($servername, $username, $password);
-
-// if ($conn->connect_error) {
-//   die("Connection To The Database Failed: " . $conn->connect_error);
-// }
-// echo "Connected To The Database Successfully";
-mysqli_connect("localhost", "username", "password");
-$lab_result = mysql_query("SELECT * FROM LabItems");
-while($lab_row = mysql_fetch_array($lab_result)) {
-    echo "<p>".$lab_row['CustName']."</p>";
-}
 ?>
-
-<!--https://datasette.io/tutorials/codespaces-->
-
-<!--Start PHP Server "php -S 00000:8080"-->
-
