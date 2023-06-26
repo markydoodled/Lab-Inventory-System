@@ -147,5 +147,30 @@
 </html>
 
 <?php
+phpinfo();
+ //Connect To A Database Using PHP
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "lab_database";
 
+    //Create Connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    //Check Connection
+    if ($conn->connect_error) {
+        die("Connection Failed: " . $conn->connect_error);
+    }
+    echo "Connected Successfully";
+    $sql = "SELECT * FROM lab_table";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        //Output Data Of Each Row
+        while($row = $result->fetch_assoc()) {
+            echo "Item Name: " . $row["item_name"] . " - Item ID: " . $row["item_id"] . " - Last Checkout Date: " . $row["last_checkout_date"] . " - Last Checkout Name: " . $row["last_checkout_name"] . "<br>";
+        }
+    } else {
+        echo "0 Results";
+    }
+    $conn->close();
 ?>

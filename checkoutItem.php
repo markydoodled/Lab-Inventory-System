@@ -73,5 +73,32 @@
 </html>
 
 <?php
+ //Alter An Existing Database Entry With A New Checkout Date And Name Using PHP
 
+    //Connect To Database
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "lab_database";
+
+    //Create Connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    //Check Connection
+    if ($conn->connect_error) {
+        die("Connection Failed: " . $conn->connect_error);
+    }
+
+    //Get Data From Form
+    $item_name = $_POST["item-name"];
+    $item_id = $_POST["item-id"];
+    $checkout_date = $_POST["checkout-date"];
+    $checkout_name = $_POST["checkout-name"];
+
+    //Update Database
+    $sql = "UPDATE lab_equipment SET checkout_date='$checkout_date', checkout_name='$checkout_name' WHERE item_name='$item_name' AND item_id='$item_id'";
+    $result = $conn->query($sql);
+
+    //Close Connection
+    $conn->close();
 ?>

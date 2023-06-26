@@ -74,5 +74,32 @@
 </html>
 
 <?php
+ //Add A New Item To The Database Using PHP
+ 
+    //Connect To The Database
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "lab_database";
+    
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
+    //Check Connection
+    if ($conn->connect_error) {
+        die("Connection Failed: " . $conn->connect_error);
+    }
+
+    //Get The Item Name And Item ID From The Form
+    $itemName = $_POST['item-name'];
+    $itemID = $_POST['item-id'];
+
+    //Insert The Item Into The Database
+    $sql = "INSERT INTO items (item_name, item_id) VALUES ('$itemName', '$itemID')";
+    if ($conn->query($sql) === TRUE) {
+        echo "New Item Added Successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
 ?>
