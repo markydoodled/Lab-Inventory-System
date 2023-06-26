@@ -116,10 +116,10 @@
     <br>
     <br>
     <div class="button-container">
-        <a href="newItem.html">
+        <a href="newItem.php">
             <button>Add New Item</button>
         </a>
-        <a href="checkoutItem.html">
+        <a href="checkoutItem.php">
             <button>Checkout Item</button>
         </a>
     </div>
@@ -147,19 +147,5 @@
 </html>
 
 <?php
-// $servername = "localhost";
-// $username = "username";
-// $password = "password";
 
-// $conn = new mysqli($servername, $username, $password);
-
-// if ($conn->connect_error) {
-//   die("Connection To The Database Failed: " . $conn->connect_error);
-// }
-// echo "Connected To The Database Successfully";
-mysqli_connect("localhost", "username", "password");
-$lab_result = mysql_query("SELECT * FROM LabItems");
-while($lab_row = mysql_fetch_array($lab_result)) {
-    echo "<p>".$lab_row['CustName']."</p>";
-}
 ?>
