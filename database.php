@@ -147,7 +147,6 @@
 </html>
 
 <?php
-phpinfo();
  //Connect To A Database Using PHP
     $servername = "localhost";
     $username = "root";

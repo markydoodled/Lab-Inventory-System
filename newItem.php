@@ -60,7 +60,7 @@
         <input type="text" id="item-id" name="item-id" required>
         <br>
         <br>
-        <button type="submit">Add New Item</button>
+        <button type="submit" onclick="new_item()">Add New Item</button>
     </form>
     <script>
         const form = document.getElementById('newItem-form');
@@ -89,17 +89,22 @@
         die("Connection Failed: " . $conn->connect_error);
     }
 
-    //Get The Item Name And Item ID From The Form
-    $itemName = $_POST['item-name'];
-    $itemID = $_POST['item-id'];
+    //PHP Function To Add A New Item To The Database
+    function new_item() {
+        phpinfo();
+        //Get The Item Name And Item ID From The Form
+        $itemName = $_POST['item-name'];
+        $itemID = $_POST['item-id'];
 
-    //Insert The Item Into The Database
-    $sql = "INSERT INTO items (item_name, item_id) VALUES ('$itemName', '$itemID')";
-    if ($conn->query($sql) === TRUE) {
-        echo "New Item Added Successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        //Insert The Item Into The Database
+        $sql = "INSERT INTO items (item_name, item_id) VALUES ('$itemName', '$itemID')";
+        if ($conn->query($sql) === TRUE) {
+            echo "New Item Added Successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+
+        //Close The Connection
+        $conn->close();
     }
-
-    $conn->close();
 ?>
