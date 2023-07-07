@@ -83,36 +83,51 @@
 <body>
     <h1>Lab Database Table</h1>
     <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search For Item Names..." title="Type In An Item Name">
-    <table id="myTable">
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Item ID</th>
-                <th>Last Checkout Date</th>
-                <th>Last Checkout Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Item 1</td>
-                <td>1</td>
-                <td>1/1/1999</td>
-                <td>John Doe</td>
-            </tr>
-            <tr>
-                <td>Item 2</td>
-                <td>2</td>
-                <td>1/2/1999</td>
-                <td>John Doe</td>
-            </tr>
-            <tr>
-                <td>Item 3</td>
-                <td>3</td>
-                <td>1/3/1999</td>
-                <td>John Doe</td>
-            </tr>
-        </tbody>
-    </table>
+    <?php
+ //Connect To A Database Using PHP
+    $servername = "localhost";
+    $username = "bsdcLabUser";
+    $password = "bsdcLabPassword";
+    $dbname = "bsdc_lab_items";
+
+    //Create Connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    
+    //Check Connection
+    if ($conn->connect_error) {
+        die("Connection Failed: " . $conn->connect_error);
+    }
+    //echo "Connected Successfully ";
+    $sql = "SELECT * FROM items";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        //Output Data Of Each Row
+        echo "<table id='myTable'>";
+        echo "<thead>";
+        echo "<tr>";
+        echo "<th>Item Name</th>";
+        echo "<th>Item ID</th>";
+        echo "<th>Last Checkout Date</th>";
+        echo "<th>Last Checkout Name</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+        while($row = $result->fetch_assoc()) {
+            //echo "Item Name: " . $row["name"] . " - Item ID: " . $row["id"] . " - Last Checkout Date: " . $row["last_date"] . " - Last Checkout Name: " . $row["last_name"] . "<br>";
+            echo "<tr>";
+            echo "<td>" . $row['name'] . "</td>";
+            echo "<td>" . $row['id'] . "</td>";
+            echo "<td>" . $row['last_date'] . "</td>";
+            echo "<td>" . $row['last_name'] . "</td>";
+            echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        echo "0 Results";
+    }
+    $conn->close();
+?>
     <br>
     <br>
     <div class="button-container">
@@ -145,31 +160,3 @@
         </script>
 </body>
 </html>
-
-<?php
- //Connect To A Database Using PHP
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "lab_database";
-
-    //Create Connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    
-    //Check Connection
-    if ($conn->connect_error) {
-        die("Connection Failed: " . $conn->connect_error);
-    }
-    echo "Connected Successfully";
-    $sql = "SELECT * FROM lab_table";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        //Output Data Of Each Row
-        while($row = $result->fetch_assoc()) {
-            echo "Item Name: " . $row["item_name"] . " - Item ID: " . $row["item_id"] . " - Last Checkout Date: " . $row["last_checkout_date"] . " - Last Checkout Name: " . $row["last_checkout_name"] . "<br>";
-        }
-    } else {
-        echo "0 Results";
-    }
-    $conn->close();
-?>
