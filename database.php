@@ -81,13 +81,23 @@
 
 </head>
 <body>
-    <h1>Lab Database Table</h1>
-    <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search For Item Names..." title="Type In An Item Name">
+    <h1>Lab Items</h1>
+    <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search For Items..." title="Type In An Item Name">
+    <div class="button-container">
+        <a href="newItem.php">
+            <button>Add New Item</button>
+        </a>
+        <a href="checkoutItem.php">
+            <button>Checkout Item</button>
+        </a>
+    </div>
+    <br>
+    <br>
     <?php
  //Connect To A Database Using PHP
     $servername = "localhost";
-    $username = "bsdcLabUser";
-    $password = "bsdcLabPassword";
+    $username = "Student";
+    $password = "Password123";
     $dbname = "bsdc_lab_items";
 
     //Create Connection
@@ -113,7 +123,6 @@
         echo "</thead>";
         echo "<tbody>";
         while($row = $result->fetch_assoc()) {
-            //echo "Item Name: " . $row["name"] . " - Item ID: " . $row["id"] . " - Last Checkout Date: " . $row["last_date"] . " - Last Checkout Name: " . $row["last_name"] . "<br>";
             echo "<tr>";
             echo "<td>" . $row['name'] . "</td>";
             echo "<td>" . $row['id'] . "</td>";
@@ -128,16 +137,6 @@
     }
     $conn->close();
 ?>
-    <br>
-    <br>
-    <div class="button-container">
-        <a href="newItem.php">
-            <button>Add New Item</button>
-        </a>
-        <a href="checkoutItem.php">
-            <button>Checkout Item</button>
-        </a>
-    </div>
     <script>
         function searchTable() {
           var input, filter, table, tr, td, i, txtValue;

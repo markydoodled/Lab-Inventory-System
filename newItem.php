@@ -101,7 +101,7 @@
     <br>
     <br>
     <div class="button-container">
-        <a href="../database.php">
+        <a href="http://cyber-fs01/Computing-equipment/database.php">
             <button>Back</button>
         </a>
     </div>
@@ -118,8 +118,8 @@
  
     //Connect To The Database
     $servername = "localhost";
-    $username = "bsdcLabUser";
-    $password = "bsdcLabPassword";
+    $username = "Student";
+    $password = "Password123";
     $dbname = "bsdc_lab_items";
     
     $conn = new mysqli($servername, $username, $password, $dbname);

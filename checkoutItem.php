@@ -77,15 +77,39 @@
         }
     </style>
 </head>
+<?php
+//Connect To Database
+$servername = "localhost";
+$username = "Student";
+$password = "Password123";
+$dbname = "bsdc_lab_items";
+
+//Create Connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+//Check Connection
+if ($conn->connect_error) {
+    die("Connection Failed: " . $conn->connect_error);
+}
+
+//Fetch Database Name And ID List
+$namesql = "SELECT name FROM items";
+$idsql = "SELECT id FROM items";
+$nameresult = $conn->query($namesql);
+$idresult = $conn->query($idsql);
+
+//Close Connection
+$conn->close();
+?>
 <body>
-    <h1>Check An Item Out</h1>
+    <h1>Checkout An Item</h1>
     <form method="post">
-        <label for="item-name">Item Name:</label>
-        <input type="text" id="item-name" name="item-name" required>
-        <br>
-        <br>
-        <label for="item-id">Item ID:</label>
-        <input type="text" id="item-id" name="item-id" required>
+        <label for="item-picker">Choose An Item:</label>
+        <select id="item-picker" name="item-picker">
+            <?php foreach($nameresult as $nameresult){ ?>
+                    <option><?php echo $nameresult['name'] ?></option>
+            <?php  } ?>
+        </select>
         <br>
         <br>
         <label for="checkout-date">Checkout Date:</label>
@@ -101,7 +125,7 @@
     <br>
     <br>
     <div class="button-container">
-        <a href="../database.php">
+        <a href="http://cyber-fs01/Computing-equipment/database.php">
             <button>Back</button>
         </a>
     </div>
@@ -110,8 +134,8 @@
 
     //Connect To Database
     $servername = "localhost";
-    $username = "bsdcLabUser";
-    $password = "bsdcLabPassword";
+    $username = "Student";
+    $password = "Password123";
     $dbname = "bsdc_lab_items";
 
     //Create Connection
@@ -124,13 +148,13 @@
 
     if(isset($_POST['button1'])) {
         //Get Data From Form
-        $itemName = $_POST["item-name"];
-        $itemID = $_POST["item-id"];
         $checkoutDate = $_POST["checkout-date"];
         $checkoutName = $_POST["checkout-name"];
+        $checkoutItemName = $_POST["item-picker"];
 
         //Update Database
-        $sql = "UPDATE items SET last_date='$checkoutDate', last_name='$checkoutName' WHERE name='$itemName' AND id='$itemID'";
+        //$sql = "UPDATE items SET last_date='$checkoutDate', last_name='$checkoutName' WHERE name='$nameresult['name']' AND id='$itemID'";
+        $sql = "UPDATE items SET last_date='$checkoutDate', last_name='$checkoutName' WHERE name='$checkoutItemName'";
         $result = $conn->query($sql);
  
         //Close Connection
