@@ -90,6 +90,9 @@
         <a href="checkoutItem.php">
             <button>Checkout Item</button>
         </a>
+        <a href="checkinItem.php">
+            <button>Checkin Item</button>
+        </a>
     </div>
     <br>
     <br>
@@ -119,6 +122,8 @@
         echo "<th>Item ID</th>";
         echo "<th>Last Checkout Date</th>";
         echo "<th>Last Checkout Name</th>";
+        echo "<th>Last Tutor</th>";
+        echo "<th>Checked In?</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -128,6 +133,8 @@
             echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $row['last_date'] . "</td>";
             echo "<td>" . $row['last_name'] . "</td>";
+            echo "<td>" . $row['tutor_name'] . "</td>";
+            echo "<td>" . $row['checked_in'] . "</td>";
             echo "</tr>";
         }
         echo "</tbody>";

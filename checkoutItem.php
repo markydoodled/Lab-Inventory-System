@@ -98,6 +98,14 @@ $idsql = "SELECT id FROM items";
 $nameresult = $conn->query($namesql);
 $idresult = $conn->query($idsql);
 
+//Fetch Tutors And IDs
+$tutornamesql = "SELECT tutor_name FROM tutors";
+$tutornameresult = $conn->query($tutornamesql);
+
+//Fetch Students And IDs
+$studentnamesql = "SELECT student_name FROM students";
+$studentnameresult = $conn->query($studentnamesql);
+
 //Close Connection
 $conn->close();
 ?>
@@ -112,12 +120,20 @@ $conn->close();
         </select>
         <br>
         <br>
-        <label for="checkout-date">Checkout Date:</label>
-        <input type="date" id="checkout-date" name="checkout-date" required>
-        <br>
-        <br>
         <label for="checkout-name">Checkout Name:</label>
-        <input type="text" id="checkout-name" name="checkout-name" required>
+        <select id="checkout-name" name="checkout-name">
+            <?php foreach($studentnameresult as $studentnameresult){ ?>
+                    <option><?php echo $studentnameresult['student_name'] ?></option>
+            <?php  } ?>
+        </select>
+        <br>
+        <br>
+        <label for="tutor-name">Tutor Name:</label>
+        <select id="tutor-name" name="tutor-name">
+            <?php foreach($tutornameresult as $tutornameresult){ ?>
+                    <option><?php echo $tutornameresult['tutor_name'] ?></option>
+            <?php  } ?>
+        </select>
         <br>
         <br>
         <input type="submit"name="button1" value="Update Entry"/>
@@ -148,13 +164,13 @@ $conn->close();
 
     if(isset($_POST['button1'])) {
         //Get Data From Form
-        $checkoutDate = $_POST["checkout-date"];
+        $checkoutDate = date("Y/m/d");
         $checkoutName = $_POST["checkout-name"];
         $checkoutItemName = $_POST["item-picker"];
+        $checkoutTutorName = $_POST["tutor-name"];
 
         //Update Database
-        //$sql = "UPDATE items SET last_date='$checkoutDate', last_name='$checkoutName' WHERE name='$nameresult['name']' AND id='$itemID'";
-        $sql = "UPDATE items SET last_date='$checkoutDate', last_name='$checkoutName' WHERE name='$checkoutItemName'";
+        $sql = "UPDATE items SET last_date='$checkoutDate', last_name='$checkoutName', tutor_name='$checkoutTutorName', checked_in='Checked Out' WHERE name='$checkoutItemName'";
         $result = $conn->query($sql);
  
         //Close Connection

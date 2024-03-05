@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Item</title>
+    <title>Checkin Item</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -77,18 +77,42 @@
         }
     </style>
 </head>
+<?php
+//Connect To Database
+$servername = "localhost";
+$username = "Student";
+$password = "Password123";
+$dbname = "bsdc_lab_items";
+
+//Create Connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+//Check Connection
+if ($conn->connect_error) {
+    die("Connection Failed: " . $conn->connect_error);
+}
+
+//Fetch Database Name And ID List
+$namesql = "SELECT name FROM items";
+$idsql = "SELECT id FROM items";
+$nameresult = $conn->query($namesql);
+$idresult = $conn->query($idsql);
+
+//Close Connection
+$conn->close();
+?>
 <body>
-    <h1>Add Item To The Database</h1>
+    <h1>Checkin An Item</h1>
     <form method="post">
-        <label for="item-name">Item Name:</label>
-        <input type="text" id="item-name" name="item-name" required>
+        <label for="item-picker">Choose An Item:</label>
+        <select id="item-picker" name="item-picker">
+            <?php foreach($nameresult as $nameresult){ ?>
+                    <option><?php echo $nameresult['name'] ?></option>
+            <?php  } ?>
+        </select>
         <br>
         <br>
-        <label for="item-id">Item ID:</label>
-        <input type="text" id="item-id" name="item-id" required>
-        <br>
-        <br>
-        <input type="submit" name="button1" value="Add New Item"/>
+        <input type="submit"name="button1" value="Update Entry"/>
     </form>
     <br>
     <br>
@@ -97,49 +121,33 @@
             <button>Back</button>
         </a>
     </div>
-    <script>
-        const form = document.getElementById('newItem-form');
-        form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const itemName = form.elements.item-name.value;
-        const itemID = form.elements.item-id.value;
-        });
-    </script>
     <?php
- //Add A New Item To The Database Using PHP
- 
-    //Connect To The Database
+ //Alter An Existing Database Entry With A New Checkout Date And Name Using PHP
+
+    //Connect To Database
     $servername = "localhost";
     $username = "Student";
     $password = "Password123";
     $dbname = "bsdc_lab_items";
-    
+
+    //Create Connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     //Check Connection
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     }
-    //PHP Function To Add A New Item To The Database
+
     if(isset($_POST['button1'])) {
-         //Get The Item Name And Item ID From The Form
-         $itemName = $_POST['item-name'];
-         $itemID = $_POST['item-id'];
-         $checkoutDate = date("Y/m/d");
-         $checkoutName = "SYSTEM";
-         $checkoutTutor = "N/A";
-         $checkoutStat = "0";
+        //Get Data From Form
+        $checkoutItemName = $_POST["item-picker"];
+
+        //Update Database
+        $sql = "UPDATE items SET checked_in='Checked In' WHERE name='$checkoutItemName'";
+        $result = $conn->query($sql);
  
-         //Insert The Item Into The Database
-         $sql = "INSERT INTO items VALUES ('$itemID', '$itemName', '$checkoutDate', '$checkoutName', '$checkoutTutor', '$checkoutStat')";
-         if ($conn->query($sql) === TRUE) {
-             echo "New Item Added Successfully";
-         } else {
-             echo "Error: " . $sql . "<br>" . $conn->error;
-         }
- 
-         //Close The Connection
-         $conn->close();
+        //Close Connection
+        $conn->close();
     }
 ?>
 </body>
